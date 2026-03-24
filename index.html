@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>NotDefterim – Şifreli Not Defteri Uygulaması</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .app-icon {
+            width: 96px;
+            height: 96px;
+            background: #2c3e50;
+            border-radius: 24px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .tagline {
+            font-size: 1.2rem;
+            color: #4a6a8a;
+            margin-bottom: 2rem;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .feature-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+        }
+        .feature-card h3 {
+            margin-bottom: 0.5rem;
+            color: #2980b9;
+        }
+        .download-btn {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding: 1rem 2rem;
+            border-radius: 48px;
+            text-decoration: none;
+            transition: background 0.2s;
+            margin: 1rem 0;
+        }
+        .download-btn:hover {
+            background: #219653;
+        }
+        .version-info {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 0.5rem;
+        }
+        .legal-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .legal-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .legal-link a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #ddd;
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+        /* Modal (açılır pencere) stilleri */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80%;
+            overflow-y: auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: black;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="app-icon">📓</div>
+            <h1>NotDefterim</h1>
+            <div class="tagline">Şifreli, klasör ağaçlı, tamamen yerel – kişisel not defteriniz.</div>
+        </header>
+
+        <div class="features">
+            <div class="feature-card">
+                <h3>🔐 Şifre Korumalı</h3>
+                <p>Uygulama açılışında şifre sorulur. Notlarınız şifrelenmiş olarak saklanır.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📂 Klasör Ağacı</h3>
+                <p>Klasörler oluşturun, notlarınızı düzenleyin. Klasörler ve notlar ağaç görünümünde.</p>
+            </div>
+            <div class="feature-card">
+                <h3>✍️ Zengin Metin Düzenleme</h3>
+                <p>Kalın, italik, altı çizili, yazı tipi ailesi, yazı boyutu – tüm stiller.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔍 Kelime Arama</h3>
+                <p>Notlar içinde hızlı arama, eşleşmeler vurgulanır.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🌙 Koyu / Açık Tema</h3>
+                <p>Sistem temasını takip eder veya manuel seçim.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📁 Dışa Aktarma</h3>
+                <p>Notlarınızı .txt olarak dışa aktarabilir, yedek alabilirsiniz.</p>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="NotDefterim.apk" class="download-btn" download>📲 APK İndir (sürüm 1.0)</a>
+            <div class="version-info">Android 6.0+ | 5.2 MB | Güvenli, şifrelenmiş notlar</div>
+        </div>
+
+        <div class="legal-link">
+            <a href="#" id="showTermsLink">📜 Kullanım Koşulları ve Gizlilik Politikası</a>
+        </div>
+
+        <footer>
+            <p>NotDefterim – Kişisel verileriniz asla üçüncü taraflarla paylaşılmaz. Uygulama tamamen yerel çalışır.</p>
+            <p>© 2026 Ubeyt ÇETİL | İletişim: ubeyt2029@gmail.com</p>
+        </footer>
+    </div>
+
+    <!-- Modal (açılır pencere) -->
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>📜 Kullanım Koşulları ve Gizlilik Politikası</h2>
+            <p><strong>Son güncelleme:</strong> 24 Mart 2026</p>
+
+            <h3>1. Uygulamanın Amacı ve Kapsamı</h3>
+            <p>NotDefterim, kullanıcıların kişisel notlarını güvenli bir şekilde cihazlarında saklamalarına olanak tanıyan bir Android uygulamasıdır. Uygulama, kullanıcı tarafından belirlenen bir şifre ile korunur. Notlar, kullanıcının cihazında (veritabanında) şifrelenmeden saklanır; uygulama, kullanıcı verilerini hiçbir şekilde sunucuya iletmez, dışa aktarmaz veya üçüncü taraflarla paylaşmaz.</p>
+
+            <h3>2. Veri Toplama ve Depolama</h3>
+            <p>NotDefterim, herhangi bir kişisel veriyi (ad, e-posta, telefon numarası, konum vb.) toplamaz, saklamaz veya işlemez. Kullanıcının oluşturduğu notlar, yalnızca kullanıcının cihazında yerel olarak tutulur. Uygulama, internet bağlantısı gerektirmez ve herhangi bir bulut hizmeti ile senkronizasyon yapmaz.</p>
+            <p><strong>Uygulama giriş şifresi</strong> yalnızca kullanıcının cihazında saklanır; geliştiricinin bu şifreyi görme, değiştirme veya kurtarma imkânı yoktur.</p>
+
+            <h3>3. Kullanıcının Sorumlulukları</h3>
+            <ul>
+                <li>Kullanıcı, uygulama şifresini güvenli bir şekilde saklamakla yükümlüdür. Şifre unutulursa, notlar kurtarılamaz.</li>
+                <li>Uygulama, yalnızca kişisel ve yasal kullanım için tasarlanmıştır. Kullanıcı, uygulamayı yasa dışı faaliyetlerde kullanmamayı kabul eder.</li>
+                <li>Kullanıcı, uygulamanın dışa aktarma (.txt) özelliğini kullanarak notlarını kendi sorumluluğunda yedekleyebilir. Bu dosyaların güvenliğinden kullanıcı sorumludur.</li>
+            </ul>
+
+            <h3>4. Geliştiricinin Sorumluluğu ve Yasal Uyarı</h3>
+            <p>Geliştirici (Ubeyt ÇETİL), uygulamanın işlevselliğini sürdürmek için çaba gösterir, ancak veri kaybı, donanım arızası veya üçüncü parti müdahaleleri sonucu oluşabilecek veri kayıplarından sorumlu tutulamaz. Kullanıcı, uygulamayı kullanarak bu koşulları kabul eder.</p>
+            <p>Yasal bir zorunluluk halinde (örneğin mahkeme kararı), geliştirici, uygulamanın kaynak kodunu ve veri yapısını yetkili mercilere sunmakla yükümlüdür. Ancak geliştirici, kullanıcı şifresini bilmediği için notların içeriğine erişemez.</p>
+
+            <h3>5. Değişiklikler ve Güncellemeler</h3>
+            <p>Bu kullanım koşulları ve gizlilik politikası, uygulamanın yeni sürümleri veya yasal düzenlemeler gereği güncellenebilir. Değişiklikler bu sayfada yayınlanır ve geçerlilik kazanır.</p>
+
+            <h3>6. İletişim</h3>
+            <p>Bu koşullarla ilgili sorularınız için: <strong>ubeyt2029@gmail.com</strong></p>
+        </div>
+    </div>
+
+    <script>
+        // Modal işlemleri
+        var modal = document.getElementById("termsModal");
+        var link = document.getElementById("showTermsLink");
+        var span = document.getElementsByClassName("close")[0];
+
+        link.onclick = function(event) {
+            event.preventDefault();
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
