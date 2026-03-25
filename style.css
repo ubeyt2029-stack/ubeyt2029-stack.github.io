@@ -1,1 +1,255 @@
-<link rel="stylesheet" href="style.css">
+/* Genel stiller (mevcut stilleriniz buraya eklenmiştir) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f7fa;
+    color: #2c3e50;
+    line-height: 1.6;
+}
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.app-icon {
+    width: 96px;
+    height: 96px;
+    background: #2c3e50;
+    border-radius: 24px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: white;
+}
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+.tagline {
+    font-size: 1.2rem;
+    color: #4a6a8a;
+    margin-bottom: 2rem;
+}
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+.feature-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+.feature-card:hover {
+    transform: translateY(-4px);
+}
+.feature-card h3 {
+    margin-bottom: 0.5rem;
+    color: #2980b9;
+}
+.download-btn {
+    display: inline-block;
+    background: #27ae60;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: 1rem 2rem;
+    border-radius: 48px;
+    text-decoration: none;
+    transition: background 0.2s;
+    margin: 1rem 0;
+}
+.download-btn:hover {
+    background: #219653;
+}
+.version-info {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin-top: 0.5rem;
+}
+.legal-link {
+    text-align: center;
+    margin-top: 1rem;
+}
+.legal-link a {
+    color: #3498db;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+.legal-link a:hover {
+    text-decoration: underline;
+}
+footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #ddd;
+    font-size: 0.85rem;
+    color: #7f8c8d;
+}
+
+/* Modal (Kullanım Koşulları) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 80%;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close:hover {
+    color: black;
+}
+
+/* Ekran görüntüleri grid (9 fotoğraf, 2'li sıra) */
+.screenshots {
+    margin: 2rem 0;
+}
+.screenshot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    justify-items: center;
+    align-items: center;
+}
+.screenshot-grid img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+.screenshot-grid img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+}
+
+/* Video bölümü (responsive) */
+.video-section {
+    margin: 2rem 0;
+}
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+    margin: 1rem 0;
+}
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* SSS Akordeon */
+.faq {
+    margin: 2rem 0;
+}
+.faq-item {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 0.5rem;
+}
+.faq-question {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.faq-answer {
+    display: none;
+    padding-bottom: 1rem;
+    line-height: 1.5;
+}
+.faq-answer.show {
+    display: block;
+}
+.faq-icon {
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+}
+.faq-icon.rotate {
+    transform: rotate(45deg);
+}
+
+/* Sayfa görüntüleme sayacı */
+.counter-card {
+    text-align: center;
+    margin: 2rem auto;
+    padding: 0.8rem;
+    background: #f0f0f0;
+    border-radius: 40px;
+    display: inline-block;
+    width: auto;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Lightbox (resim büyütme) */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
