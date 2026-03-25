@@ -145,6 +145,81 @@
             h1 {
                 font-size: 1.8rem;
             }
+            .screenshots {
+    margin: 2rem 0;
+}
+.screenshot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    justify-items: center;
+    align-items: center;
+}
+.screenshot-grid img {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.screenshot-grid img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+}
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 oranı */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+    margin: 2rem 0;
+}
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+            .faq-item {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 0.5rem;
+}
+.faq-question {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.faq-answer {
+    display: none;
+    padding-bottom: 1rem;
+    line-height: 1.5;
+}
+.faq-answer.show {
+    display: block;
+}
+.faq-icon {
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+}
+.faq-icon.rotate {
+    transform: rotate(45deg);
+}
+.counter-card {
+    text-align: center;
+    margin: 2rem auto;
+    padding: 0.8rem;
+    background: #f0f0f0;
+    border-radius: 40px;
+    display: inline-block;
+    width: auto;
+    font-size: 0.9rem;
+    color: #555;
+}
         }
     </style>
 </head>
@@ -182,6 +257,32 @@
                 <p>Notlarınızı .txt olarak dışa aktarabilir, yedek alabilirsiniz.</p>
             </div>
         </div>
+        <div class="screenshots">
+    <h2>📸 Ekran Görüntüleri</h2>
+    <div class="screenshot-grid">
+        <img src="screenshots/screenshot1.png" alt="Klasör ağacı">
+        <img src="screenshots/screenshot2.png" alt="Not düzenleme">
+        <img src="screenshots/screenshot3.png" alt="Koyu tema">
+    </div>
+</div>
+        <div class="video-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+</div>
+        <div class="faq">
+    <h2>❓ Sık Sorulan Sorular</h2>
+    <div class="faq-item">
+        <div class="faq-question">Notlarım nerede saklanıyor? <span class="faq-icon">+</span></div>
+        <div class="faq-answer">Notlarınız yalnızca cihazınızda, uygulamanın özel veri klasöründe saklanır. Bizimle veya herhangi bir sunucuyla paylaşılmaz.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">Tam sürümü nasıl satın alabilirim? <span class="faq-icon">+</span></div>
+        <div class="faq-answer">Uygulama içindeki “Tam Sürüme Geç” menüsünden cihaz ID’nizi kopyalayıp, belirtilen IBAN’a ödeme yaparak lisans anahtarı alabilirsiniz.</div>
+    </div>
+    <!-- daha fazla soru -->
+</div>
+        <div class="counter-card">
+    <span id="visitCount">Yükleniyor...</span> kişi bu sayfayı ziyaret etti.
+</div>
 
         <div style="text-align: center;">
             <a href="NotDefterim.apk" class="download-btn" download>📲 APK İndir (sürüm 1.0)</a>
@@ -252,5 +353,15 @@
             }
         }
     </script>
+    <script>
+    document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', () => {
+            const answer = q.parentElement.querySelector('.faq-answer');
+            const icon = q.querySelector('.faq-icon');
+            answer.classList.toggle('show');
+            icon.classList.toggle('rotate');
+        });
+    });
+</script>
 </body>
 </html>
