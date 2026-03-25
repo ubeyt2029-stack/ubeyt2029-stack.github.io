@@ -4,225 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>NotDefterim – Şifreli Not Defteri Uygulaması</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f7fa;
-            color: #2c3e50;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .app-icon {
-            width: 96px;
-            height: 96px;
-            background: #2c3e50;
-            border-radius: 24px;
-            margin: 0 auto 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: white;
-        }
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .tagline {
-            font-size: 1.2rem;
-            color: #4a6a8a;
-            margin-bottom: 2rem;
-        }
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        .feature-card {
-            background: white;
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-        }
-        .feature-card:hover {
-            transform: translateY(-4px);
-        }
-        .feature-card h3 {
-            margin-bottom: 0.5rem;
-            color: #2980b9;
-        }
-        .download-btn {
-            display: inline-block;
-            background: #27ae60;
-            color: white;
-            font-size: 1.3rem;
-            font-weight: bold;
-            padding: 1rem 2rem;
-            border-radius: 48px;
-            text-decoration: none;
-            transition: background 0.2s;
-            margin: 1rem 0;
-        }
-        .download-btn:hover {
-            background: #219653;
-        }
-        .version-info {
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            margin-top: 0.5rem;
-        }
-        .legal-link {
-            text-align: center;
-            margin-top: 1rem;
-        }
-        .legal-link a {
-            color: #3498db;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-        .legal-link a:hover {
-            text-decoration: underline;
-        }
-        footer {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #ddd;
-            font-size: 0.85rem;
-            color: #7f8c8d;
-        }
-        /* Modal (açılır pencere) stilleri */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 10% auto;
-            padding: 20px;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 800px;
-            max-height: 80%;
-            overflow-y: auto;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .close:hover {
-            color: black;
-        }
-        @media (max-width: 600px) {
-            .container {
-                padding: 1rem;
-            }
-            h1 {
-                font-size: 1.8rem;
-            }
-            .screenshots {
-    margin: 2rem 0;
-}
-.screenshot-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    justify-items: center;
-    align-items: center;
-}
-.screenshot-grid img {
-    width: 100%;
-    max-width: 250px;
-    border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.screenshot-grid img:hover {
-    transform: scale(1.03);
-    box-shadow: 0 12px 28px rgba(0,0,0,0.2);
-}
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 oranı */
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
-    background: #000;
-    margin: 2rem 0;
-}
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-            .faq-item {
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 0.5rem;
-}
-.faq-question {
-    font-weight: bold;
-    cursor: pointer;
-    padding: 1rem 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.faq-answer {
-    display: none;
-    padding-bottom: 1rem;
-    line-height: 1.5;
-}
-.faq-answer.show {
-    display: block;
-}
-.faq-icon {
-    font-size: 1.2rem;
-    transition: transform 0.2s;
-}
-.faq-icon.rotate {
-    transform: rotate(45deg);
-}
-.counter-card {
-    text-align: center;
-    margin: 2rem auto;
-    padding: 0.8rem;
-    background: #f0f0f0;
-    border-radius: 40px;
-    display: inline-block;
-    width: auto;
-    font-size: 0.9rem;
-    color: #555;
-}
-<link rel="stylesheet" href="style.css">
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <!-- Lightbox için ek CSS (isteğe bağlı, zaten style.css içinde) -->
 </head>
 <body>
     <div class="container">
@@ -258,40 +41,64 @@
                 <p>Notlarınızı .txt olarak dışa aktarabilir, yedek alabilirsiniz.</p>
             </div>
         </div>
-        <div class="screenshots">
-    <h2>📸 Ekran Görüntüleri</h2>
-    <div class="screenshot-grid">
-        <img src="screenshots/screenshot1.png" alt="Klasör ağacı">
-        <img src="screenshots/screenshot2.png" alt="Not düzenleme">
-        <img src="screenshots/screenshot3.png" alt="Koyu tema">
-    </div>
-</div>
-        <div class="video-container">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
-</div>
-        <div class="faq">
-    <h2>❓ Sık Sorulan Sorular</h2>
-    <div class="faq-item">
-        <div class="faq-question">Notlarım nerede saklanıyor? <span class="faq-icon">+</span></div>
-        <div class="faq-answer">Notlarınız yalnızca cihazınızda, uygulamanın özel veri klasöründe saklanır. Bizimle veya herhangi bir sunucuyla paylaşılmaz.</div>
-    </div>
-    <div class="faq-item">
-        <div class="faq-question">Tam sürümü nasıl satın alabilirim? <span class="faq-icon">+</span></div>
-        <div class="faq-answer">Uygulama içindeki “Tam Sürüme Geç” menüsünden cihaz ID’nizi kopyalayıp, belirtilen IBAN’a ödeme yaparak lisans anahtarı alabilirsiniz.</div>
-    </div>
-    <!-- daha fazla soru -->
-</div>
-        <div class="counter-card">
-    <span id="visitCount">Yükleniyor...</span> kişi bu sayfayı ziyaret etti.
-</div>
 
+        <!-- Ekran Görüntüleri (9 fotoğraf) -->
+        <div class="screenshots">
+            <h2>📸 Ekran Görüntüleri</h2>
+            <div class="screenshot-grid">
+                <!-- 9 fotoğrafı sırayla ekleyin. Dosya adlarını kendi adlarınızla değiştirin -->
+                <img src="screenshots/1.jpg" alt="Ekran görüntüsü 1" onclick="openLightbox(this)">
+                <img src="screenshots/2.jpg" alt="Ekran görüntüsü 2" onclick="openLightbox(this)">
+                <img src="screenshots/3.jpg" alt="Ekran görüntüsü 3" onclick="openLightbox(this)">
+                <img src="screenshots/4.jpg" alt="Ekran görüntüsü 4" onclick="openLightbox(this)">
+                <img src="screenshots/5.jpg" alt="Ekran görüntüsü 5" onclick="openLightbox(this)">
+                <img src="screenshots/6.jpg" alt="Ekran görüntüsü 6" onclick="openLightbox(this)">
+                <img src="screenshots/7.jpg" alt="Ekran görüntüsü 7" onclick="openLightbox(this)">
+                <img src="screenshots/8.jpg" alt="Ekran görüntüsü 8" onclick="openLightbox(this)">
+                <img src="screenshots/9.jpg" alt="Ekran görüntüsü 9" onclick="openLightbox(this)">
+            </div>
+        </div>
+
+        <!-- Video Tanıtım (YouTube embed) -->
+        <div class="video-section">
+            <h2>🎥 Tanıtım Videosu</h2>
+            <div class="video-container">
+                <!-- YouTube video ID'nizi aşağıdaki XXXXXX kısmına yazın -->
+                <iframe src="https://www.youtube.com/embed/XXXXXX" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Sık Sorulan Sorular (Akordeon) -->
+        <div class="faq">
+            <h2>❓ Sık Sorulan Sorular</h2>
+            <div class="faq-item">
+                <div class="faq-question">Notlarım nerede saklanıyor? <span class="faq-icon">+</span></div>
+                <div class="faq-answer">Notlarınız yalnızca cihazınızda, uygulamanın özel veri klasöründe saklanır. Bizimle veya herhangi bir sunucuyla paylaşılmaz.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Tam sürümü nasıl satın alabilirim? <span class="faq-icon">+</span></div>
+                <div class="faq-answer">Uygulama içindeki “Tam Sürüme Geç” menüsünden cihaz ID’nizi kopyalayıp, belirtilen IBAN’a ödeme yaparak lisans anahtarı alabilirsiniz.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Uygulamayı sildiğimde notlarım kaybolur mu? <span class="faq-icon">+</span></div>
+                <div class="faq-answer">Evet, uygulama silindiğinde tüm veriler (notlar, klasörler) cihazdan kaldırılır. Dışa aktarma özelliği ile yedek almanızı öneririz.</div>
+            </div>
+        </div>
+
+        <!-- İndirme Butonu -->
         <div style="text-align: center;">
             <a href="NotDefterim.apk" class="download-btn" download>📲 APK İndir (sürüm 1.0)</a>
             <div class="version-info">Android 6.0+ | 5.2 MB | Güvenli, şifrelenmiş notlar</div>
         </div>
 
+        <!-- Kullanım Koşulları Linki -->
         <div class="legal-link">
             <a href="#" id="showTermsLink">📜 Kullanım Koşulları ve Gizlilik Politikası</a>
+        </div>
+
+        <!-- Sayfa Görüntüleme Sayacı -->
+        <div class="counter-card">
+            <span id="visitCount">Yükleniyor...</span> kişi bu sayfayı ziyaret etti.
         </div>
 
         <footer>
@@ -300,69 +107,81 @@
         </footer>
     </div>
 
-    <!-- Modal (açılır pencere) -->
+    <!-- Modal (Kullanım Koşulları) -->
     <div id="termsModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>📜 Kullanım Koşulları ve Gizlilik Politikası</h2>
             <p><strong>Son güncelleme:</strong> 24 Mart 2026</p>
-
             <h3>1. Uygulamanın Amacı ve Kapsamı</h3>
             <p>NotDefterim, kullanıcıların kişisel notlarını güvenli bir şekilde cihazlarında saklamalarına olanak tanıyan bir Android uygulamasıdır. Uygulama, kullanıcı tarafından belirlenen bir şifre ile korunur. Notlar, kullanıcının cihazında (veritabanında) şifrelenmeden saklanır; uygulama, kullanıcı verilerini hiçbir şekilde sunucuya iletmez, dışa aktarmaz veya üçüncü taraflarla paylaşmaz.</p>
-
             <h3>2. Veri Toplama ve Depolama</h3>
             <p>NotDefterim, herhangi bir kişisel veriyi (ad, e-posta, telefon numarası, konum vb.) toplamaz, saklamaz veya işlemez. Kullanıcının oluşturduğu notlar, yalnızca kullanıcının cihazında yerel olarak tutulur. Uygulama, internet bağlantısı gerektirmez ve herhangi bir bulut hizmeti ile senkronizasyon yapmaz.</p>
             <p><strong>Uygulama giriş şifresi</strong> yalnızca kullanıcının cihazında saklanır; geliştiricinin bu şifreyi görme, değiştirme veya kurtarma imkânı yoktur.</p>
-
             <h3>3. Kullanıcının Sorumlulukları</h3>
-            <ul>
-                <li>Kullanıcı, uygulama şifresini güvenli bir şekilde saklamakla yükümlüdür. Şifre unutulursa, notlar kurtarılamaz.</li>
-                <li>Uygulama, yalnızca kişisel ve yasal kullanım için tasarlanmıştır. Kullanıcı, uygulamayı yasa dışı faaliyetlerde kullanmamayı kabul eder.</li>
-                <li>Kullanıcı, uygulamanın dışa aktarma (.txt) özelliğini kullanarak notlarını kendi sorumluluğunda yedekleyebilir. Bu dosyaların güvenliğinden kullanıcı sorumludur.</li>
-            </ul>
-
+            <ul><li>Kullanıcı, uygulama şifresini güvenli bir şekilde saklamakla yükümlüdür. Şifre unutulursa, notlar kurtarılamaz.</li>
+            <li>Uygulama, yalnızca kişisel ve yasal kullanım için tasarlanmıştır. Kullanıcı, uygulamayı yasa dışı faaliyetlerde kullanmamayı kabul eder.</li>
+            <li>Kullanıcı, uygulamanın dışa aktarma (.txt) özelliğini kullanarak notlarını kendi sorumluluğunda yedekleyebilir. Bu dosyaların güvenliğinden kullanıcı sorumludur.</li></ul>
             <h3>4. Geliştiricinin Sorumluluğu ve Yasal Uyarı</h3>
             <p>Geliştirici (Ubeyt ÇETİL), uygulamanın işlevselliğini sürdürmek için çaba gösterir, ancak veri kaybı, donanım arızası veya üçüncü parti müdahaleleri sonucu oluşabilecek veri kayıplarından sorumlu tutulamaz. Kullanıcı, uygulamayı kullanarak bu koşulları kabul eder.</p>
             <p>Yasal bir zorunluluk halinde (örneğin mahkeme kararı), geliştirici, uygulamanın kaynak kodunu ve veri yapısını yetkili mercilere sunmakla yükümlüdür. Ancak geliştirici, kullanıcı şifresini bilmediği için notların içeriğine erişemez.</p>
-
             <h3>5. Değişiklikler ve Güncellemeler</h3>
             <p>Bu kullanım koşulları ve gizlilik politikası, uygulamanın yeni sürümleri veya yasal düzenlemeler gereği güncellenebilir. Değişiklikler bu sayfada yayınlanır ve geçerlilik kazanır.</p>
-
             <h3>6. İletişim</h3>
             <p>Bu koşullarla ilgili sorularınız için: <strong>ubeyt2029@gmail.com</strong></p>
         </div>
     </div>
 
+    <!-- Lightbox (resim büyütme) -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+
     <script>
-        // Modal işlemleri
+        // Modal işlemleri (Kullanım Koşulları)
         var modal = document.getElementById("termsModal");
         var link = document.getElementById("showTermsLink");
         var span = document.getElementsByClassName("close")[0];
-
         link.onclick = function(event) {
             event.preventDefault();
             modal.style.display = "block";
         }
-
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
+        span.onclick = function() { modal.style.display = "none"; }
         window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
+            if (event.target == modal) modal.style.display = "none";
         }
-    </script>
-    <script>
-    document.querySelectorAll('.faq-question').forEach(q => {
-        q.addEventListener('click', () => {
-            const answer = q.parentElement.querySelector('.faq-answer');
-            const icon = q.querySelector('.faq-icon');
-            answer.classList.toggle('show');
-            icon.classList.toggle('rotate');
+
+        // Akordeon (SSS)
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                const answer = q.parentElement.querySelector('.faq-answer');
+                const icon = q.querySelector('.faq-icon');
+                answer.classList.toggle('show');
+                icon.classList.toggle('rotate');
+            });
         });
-    });
-</script>
+
+        // Lightbox (resim büyütme)
+        function openLightbox(img) {
+            var lightbox = document.getElementById("lightbox");
+            var lightboxImg = document.getElementById("lightbox-img");
+            lightbox.style.display = "flex";
+            lightboxImg.src = img.src;
+        }
+        function closeLightbox() {
+            document.getElementById("lightbox").style.display = "none";
+        }
+
+        // Sayfa görüntüleme sayacı (CountAPI)
+        fetch('https://api.countapi.xyz/hit/ubeyt2029-stack.github.io/visits')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('visitCount').innerText = data.value;
+            })
+            .catch(() => {
+                document.getElementById('visitCount').innerText = '?';
+            });
+    </script>
 </body>
 </html>
