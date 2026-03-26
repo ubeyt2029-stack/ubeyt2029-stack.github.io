@@ -50,14 +50,14 @@
             <div class="feature-card"><h3>📁 Dışa Aktarma</h3><p>Notlarınızı .txt olarak dışa aktarabilir, yedek alabilirsiniz.</p></div>
         </div>
 
-        <!-- 📸 EKRAN GÖRÜNTÜLERİ – 9 GÖRSEL, 2'Lİ SIRA -->
-        <div class="screenshots">
-            <h2>📸 Ekran Görüntüleri</h2>
-            <div class="screenshot-grid" id="screenshotGrid"></div>
-        </div>
+        <!-- 📸 EKRAN GÖRÜNTÜLERİ – TÜM GÖRSELLER -->
+<div class="screenshots">
+    <h2>📸 Ekran Görüntüleri</h2>
+    <div class="screenshot-grid" id="screenshotGrid"></div>
+</div>
 
-        <!-- 🎥 TANITIM VİDEOSU – YouTube linkinizi buraya yazın -->
-       <div class="video-container">
+        <!-- 🎥 TANITIM VİDEOSU -->
+<div class="video-container">
     <h2>🎥 Tanıtım Videosu</h2>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/MtY64tT4dWA" 
             title="YouTube video player" frameborder="0" allowfullscreen></iframe>
@@ -95,22 +95,22 @@
     </div>
 
     <script>
-    // Tüm ekran görüntülerinin adları (sırayla)
+    // GitHub'daki adlarla birebir aynı olmalı!
     const screenshotNames = [
         "Screenshot0.png", "Screenshot1.png", "Screenshot2.png", "Screenshot3.png",
         "Screenshot4.png", "Screenshot5.png", "Screenshot6.png", "Screenshot7.png",
-        "Screenshot8.png", "Screenshot9.png",
+        "Screenshot8.png", "Screenshot9.png"
     ];
     const grid = document.getElementById("screenshotGrid");
     screenshotNames.forEach(name => {
         const img = document.createElement("img");
         img.src = `screenshots/${name}`;
-        img.alt = "NotDefterim ekran görüntüsü";
+        img.alt = "NotDefterim ekran görüntüsü";   // İsterseniz kısaltabilirsiniz
         img.style.cursor = "pointer";
         img.addEventListener("click", () => window.open(img.src, "_blank"));
         grid.appendChild(img);
     });
-
+</script>
     // (SSS, sayaç, modal kodları aynen kalır)
 </script>
 
