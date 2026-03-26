@@ -1,1 +1,4 @@
+User-agent: *
+Allow: /
+
 Sitemap: https://ubeyt2029-stack.github.io/sitemap.xml
