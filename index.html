@@ -9,7 +9,7 @@
         /* Ekran görüntüleri için geçici ek stil – style.css içinde de olabilir */
         .screenshot-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);  /* her satırda tam 2 görsel */
+            grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
             justify-items: center;
             align-items: center;
@@ -28,8 +28,70 @@
         }
         @media (max-width: 600px) {
             .screenshot-grid {
-                grid-template-columns: 1fr;  /* telefonda tek sıra */
+                grid-template-columns: 1fr;
             }
+        }
+
+        /* SSS akordeon stilleri */
+        .faq-item {
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 0.5rem;
+        }
+        .faq-question {
+            font-weight: bold;
+            cursor: pointer;
+            padding: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            display: none;
+            padding-bottom: 1rem;
+            line-height: 1.5;
+        }
+        .faq-answer.show {
+            display: block;
+        }
+        .faq-icon {
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+        .faq-icon.rotate {
+            transform: rotate(45deg);
+        }
+
+        /* Modal stilleri */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80%;
+            overflow-y: auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: black;
         }
     </style>
 </head>
@@ -50,18 +112,18 @@
             <div class="feature-card"><h3>📁 Dışa Aktarma</h3><p>Notlarınızı .txt olarak dışa aktarabilir, yedek alabilirsiniz.</p></div>
         </div>
 
-        <!-- 📸 EKRAN GÖRÜNTÜLERİ – TÜM GÖRSELLER -->
-<div class="screenshots">
-    <h2>📸 Ekran Görüntüleri</h2>
-    <div class="screenshot-grid" id="screenshotGrid"></div>
-</div>
+        <!-- 📸 EKRAN GÖRÜNTÜLERİ -->
+        <div class="screenshots">
+            <h2>📸 Ekran Görüntüleri</h2>
+            <div class="screenshot-grid" id="screenshotGrid"></div>
+        </div>
 
         <!-- 🎥 TANITIM VİDEOSU -->
-<div class="video-container">
-    <h2>🎥 Tanıtım Videosu</h2>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/MtY64tT4dWA" 
-            title="YouTube video player" frameborder="0" allowfullscreen></iframe>
-</div>
+        <div class="video-container">
+            <h2>🎥 Tanıtım Videosu</h2>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/MtY64tT4dWA" 
+                    title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+        </div>
 
         <!-- ❓ SSS (Akordeon) -->
         <div class="faq">
@@ -89,30 +151,47 @@
         </footer>
     </div>
 
-    <!-- Modal (Kullanım Koşulları) -->
+    <!-- Modal (Kullanım Koşulları) – içeriği dolduruldu -->
     <div id="termsModal" class="modal">
-        <div class="modal-content"><span class="close">&times;</span> ... (modal içeriği aynı kalabilir) ... </div>
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>📜 Kullanım Koşulları ve Gizlilik Politikası</h2>
+            <p><strong>Son güncelleme:</strong> 24 Mart 2026</p>
+            <h3>1. Uygulamanın Amacı ve Kapsamı</h3>
+            <p>NotDefterim, kullanıcıların kişisel notlarını güvenli bir şekilde cihazlarında saklamalarına olanak tanıyan bir Android uygulamasıdır. Uygulama, kullanıcı tarafından belirlenen bir şifre ile korunur. Notlar, kullanıcının cihazında (veritabanında) şifrelenmeden saklanır; uygulama, kullanıcı verilerini hiçbir şekilde sunucuya iletmez, dışa aktarmaz veya üçüncü taraflarla paylaşmaz.</p>
+            <h3>2. Veri Toplama ve Depolama</h3>
+            <p>NotDefterim, herhangi bir kişisel veriyi (ad, e-posta, telefon numarası, konum vb.) toplamaz, saklamaz veya işlemez. Kullanıcının oluşturduğu notlar, yalnızca kullanıcının cihazında yerel olarak tutulur. Uygulama, internet bağlantısı gerektirmez ve herhangi bir bulut hizmeti ile senkronizasyon yapmaz.</p>
+            <p><strong>Uygulama giriş şifresi</strong> yalnızca kullanıcının cihazında saklanır; geliştiricinin bu şifreyi görme, değiştirme veya kurtarma imkânı yoktur.</p>
+            <h3>3. Kullanıcının Sorumlulukları</h3>
+            <ul><li>Kullanıcı, uygulama şifresini güvenli bir şekilde saklamakla yükümlüdür. Şifre unutulursa, notlar kurtarılamaz.</li><li>Uygulama, yalnızca kişisel ve yasal kullanım için tasarlanmıştır. Kullanıcı, uygulamayı yasa dışı faaliyetlerde kullanmamayı kabul eder.</li><li>Kullanıcı, uygulamanın dışa aktarma (.txt) özelliğini kullanarak notlarını kendi sorumluluğunda yedekleyebilir. Bu dosyaların güvenliğinden kullanıcı sorumludur.</li></ul>
+            <h3>4. Geliştiricinin Sorumluluğu ve Yasal Uyarı</h3>
+            <p>Geliştirici (Ubeyt ÇETİL), uygulamanın işlevselliğini sürdürmek için çaba gösterir, ancak veri kaybı, donanım arızası veya üçüncü parti müdahaleleri sonucu oluşabilecek veri kayıplarından sorumlu tutulamaz. Kullanıcı, uygulamayı kullanarak bu koşulları kabul eder.</p>
+            <p>Yasal bir zorunluluk halinde (örneğin mahkeme kararı), geliştirici, uygulamanın kaynak kodunu ve veri yapısını yetkili mercilere sunmakla yükümlüdür. Ancak geliştirici, kullanıcı şifresini bilmediği için notların içeriğine erişemez.</p>
+            <h3>5. Değişiklikler ve Güncellemeler</h3>
+            <p>Bu kullanım koşulları ve gizlilik politikası, uygulamanın yeni sürümleri veya yasal düzenlemeler gereği güncellenebilir. Değişiklikler bu sayfada yayınlanır ve geçerlilik kazanır.</p>
+            <h3>6. İletişim</h3>
+            <p>Bu koşullarla ilgili sorularınız için: <strong>ubeyt2029@gmail.com</strong></p>
+        </div>
     </div>
 
     <script>
-    // GitHub'daki adlarla birebir aynı olmalı!
-    const screenshotNames = [
-        "Screenshot0.png", "Screenshot1.png", "Screenshot2.png", "Screenshot3.png",
-        "Screenshot4.png", "Screenshot5.png", "Screenshot6.png", "Screenshot7.png",
-        "Screenshot8.png", "Screenshot9.png"
-    ];
-    const grid = document.getElementById("screenshotGrid");
-    screenshotNames.forEach(name => {
-        const img = document.createElement("img");
-        img.src = `screenshots/${name}`;
-        img.alt = "NotDefterim ekran görüntüsü";   // İsterseniz kısaltabilirsiniz
-        img.style.cursor = "pointer";
-        img.addEventListener("click", () => window.open(img.src, "_blank"));
-        grid.appendChild(img);
-    });
-</script>
-    
-   // ❓ Akordeon (SSS)
+        // GitHub'daki adlarla birebir aynı olmalı!
+        const screenshotNames = [
+            "Screenshot0.png", "Screenshot1.png", "Screenshot2.png", "Screenshot3.png",
+            "Screenshot4.png", "Screenshot5.png", "Screenshot6.png", "Screenshot7.png",
+            "Screenshot8.png", "Screenshot9.png"
+        ];
+        const grid = document.getElementById("screenshotGrid");
+        screenshotNames.forEach(name => {
+            const img = document.createElement("img");
+            img.src = `screenshots/${name}`;
+            img.alt = "NotDefterim ekran görüntüsü";
+            img.style.cursor = "pointer";
+            img.addEventListener("click", () => window.open(img.src, "_blank"));
+            grid.appendChild(img);
+        });
+
+        // ❓ Akordeon (SSS)
         document.querySelectorAll('.faq-question').forEach(q => {
             q.addEventListener('click', () => {
                 const answer = q.parentElement.querySelector('.faq-answer');
@@ -136,9 +215,9 @@
         var modal = document.getElementById("termsModal");
         var link = document.getElementById("showTermsLink");
         var span = document.getElementsByClassName("close")[0];
-        link.onclick = function(event) { event.preventDefault(); modal.style.display = "block"; }
-        span.onclick = function() { modal.style.display = "none"; }
-        window.onclick = function(event) { if (event.target == modal) modal.style.display = "none"; }
+        link.onclick = function(event) { event.preventDefault(); modal.style.display = "block"; };
+        span.onclick = function() { modal.style.display = "none"; };
+        window.onclick = function(event) { if (event.target == modal) modal.style.display = "none"; };
     </script>
 </body>
 </html>
