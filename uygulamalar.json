@@ -1,14 +1,33 @@
 [
   {
     "id": "notdefterim",
-    "baslik": "NotDefterim v1.0 - Android Not Uygulaması",
-    "platform": "Android",
+    "baslik": "NotDefterim v1.0 İndir – Full Türkçe Android APK",
+    "kategori": "Android Uygulamalar",
+    "platform": "Android (APK)",
+    "surum": "v1.0.0 Final",
     "tarih": "21 Kasım 2026",
     "boyut": "8.5 MB",
-    "ozet": "Android cihazlarınızda günlük notlarınızı hızlıca alabileceğiniz, sade ve kullanışlı mobil not defteri uygulaması.",
-    "aciklama": "NotDefterim, telefonunuzda karmaşık menülerle uğraşmadan anında not almanız için geliştirildi.\n\nÖne Çıkan Özellikler:\n• Hızlı açılış ve düşük pil/RAM tüketimi\n• Çevrimdışı (internetsiz) tam çalışma desteği\n• Sade ve kullanıcı dostu arayüz\n\nKurulum Notu:\nİndirdiğiniz .apk dosyasına dokunun. Telefonunuz izin isterse Ayarlar'dan 'Bilinmeyen Uygulamaları Yükle' seçeneğine izin vererek kurulumu tamamlayabilirsiniz.",
+    "dil": "Türkçe",
+    "lisans": "Ücretsiz (Geliştirici Sürümü)",
+    "gereksinim": "Android 8.0 ve üzeri",
+    "ozet": "Android cihazlarınız için özel olarak geliştirdiğim, internet gerektirmeyen, hızlı, güvenli ve sade arayüzlü yeni nesil mobil not alma uygulaması.",
+    "tanitim": "NotDefterim APK İndir, günlük hayatınızda aklınıza gelen fikirleri, alışveriş listelerini, önemli şifre veya toplantı notlarını karmaşık menülerle boğuşmadan saniyeler içinde kaydetmeniz için tasarlanmış yerli bir Android uygulamasıdır. Yüksek performanslı yapısı sayesinde eski cihazlarda bile donma yapmadan çalışır.",
+    "ozellikler": [
+      "Tamamen çevrimdışı (internetsiz) çalışma ve yerel veri güvenliği",
+      "Göz yormayan modern Karanlık Mod (Dark Theme) ve Aydınlık Mod desteği",
+      "Notları kategorilere ayırma, renklendirme ve anlık kelime arama",
+      "Tek dokunuşla notları yedekleme ve paylaşma özelliği",
+      "Reklamsız, sade ve yüksek hızlı kullanıcı deneyimi"
+    ],
+    "kurulum": [
+      "Aşağıdaki indirme butonlarından NotDefterim_v1.0.apk dosyasını telefonunuza indirin.",
+      "İndirilenler klasöründen .apk dosyasının üzerine dokunun.",
+      "Telefonunuz güvenlik uyarısı verirse 'Ayarlar -> Bu kaynaktan izin ver (Bilinmeyen Uygulamaları Yükle)' seçeneğini aktif edin.",
+      "Yükle butonuna basarak kurulumu tamamlayın ve uygulamayı kullanmaya başlayın."
+    ],
     "resim": "https://unsplash.com",
     "youtube_id": "",
-    "indirme_linki": "BURAYA_KOPYALADIGIN_APK_LINKINI_YAPISTIR"
+    "link1": "BURAYA_GITHUB_RELEASE_APK_LINKI",
+    "link2": ""
   }
 ]
