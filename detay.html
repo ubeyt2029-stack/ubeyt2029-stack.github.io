@@ -1,200 +1,460 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yazılım Detayı | Ubeyt ÇETİL</title>
+
+    <!-- Dinamik SEO (JS ile doldurulur) -->
+    <meta name="description" id="meta-desc" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:title" id="og-title" content="">
+    <meta property="og:description" id="og-desc" content="">
+    <meta property="og:image" id="og-img" content="">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" id="tw-title" content="">
+    <meta name="twitter:description" id="tw-desc" content="">
+    <meta name="twitter:image" id="tw-img" content="">
+
+    <link rel="preconnect" href="https://giscus.app" crossorigin>
+    <link rel="preconnect" href="https://www.youtube-nocookie.com">
+
     <style>
-        :root {
-            --bg: #0b1120;
-            --card-bg: #1e293b;
-            --panel-bg: #0f172a;
-            --text: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent: #3b82f6;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --border: #334155;
+        :root, html[data-theme="dark"] {
+            --bg:#0b1120; --card:#1e293b; --panel:#0f172a;
+            --text:#f8fafc; --muted:#94a3b8;
+            --accent:#3b82f6; --success:#10b981; --warn:#f59e0b;
+            --border:#334155; --r:12px; --rs:8px; --t:0.2s ease;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
-        body { background-color: var(--bg); color: var(--text); line-height: 1.7; padding: 1.5rem 1rem; }
-        .container { max-width: 920px; margin: 0 auto; background: var(--card-bg); border-radius: 14px; padding: 2rem; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        
-        /* Breadcrumb Navigasyon */
-        .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.2rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--border); }
-        .breadcrumb a { color: var(--accent); text-decoration: none; }
-        .breadcrumb a:hover { text-decoration: underline; }
+        html[data-theme="light"] {
+            --bg:#f1f5f9; --card:#ffffff; --panel:#f8fafc;
+            --text:#0f172a; --muted:#64748b; --border:#e2e8f0;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+        }
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{
+            font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+            background:var(--bg);color:var(--text);line-height:1.7;padding:1.5rem 1rem;
+            -webkit-font-smoothing:antialiased;transition:background var(--t),color var(--t);
+        }
+        .container{
+            max-width:920px;margin:0 auto;background:var(--card);border-radius:var(--r);
+            padding:2rem;border:1px solid var(--border);
+            box-shadow:0 10px 30px rgba(0,0,0,.2);animation:fadeIn .3s ease;
+        }
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-        h1 { font-size: 1.9rem; color: #fff; margin-bottom: 0.6rem; line-height: 1.3; }
-        .meta-bar { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; background: var(--panel-bg); padding: 0.6rem 1rem; border-radius: 8px; }
-        .meta-bar span strong { color: #e2e8f0; }
+        /* Skeleton */
+        .skeleton{position:relative;overflow:hidden;background:var(--panel);border-radius:var(--rs)}
+        .skeleton::after{content:'';position:absolute;inset:0;
+            background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);
+            animation:shimmer 1.5s infinite}
+        @keyframes shimmer{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+        .sk-line{height:1rem;margin-bottom:.75rem}
+        .sk-line.short{width:60%}
+        .sk-line.title{height:2rem;width:70%;margin-bottom:1rem}
+        .sk-img{width:100%;height:300px;margin-bottom:1.5rem}
 
-        .cover-img { width: 100%; max-height: 450px; object-fit: cover; border-radius: 10px; margin-bottom: 1.8rem; border: 1px solid var(--border); }
-        
-        .section-title { font-size: 1.25rem; color: var(--accent); margin: 1.8rem 0 0.8rem; border-left: 4px solid var(--accent); padding-left: 0.75rem; }
-        .intro-text { font-size: 1.05rem; color: #e2e8f0; margin-bottom: 1.5rem; }
+        /* A11y */
+        .skip-link{position:absolute;top:-100px;left:1rem;background:var(--accent);color:#fff;
+            padding:.75rem 1rem;border-radius:var(--rs);z-index:1000;transition:top var(--t)}
+        .skip-link:focus{top:1rem}
+        :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
 
-        /* Teknik Künye Tablosu */
-        .spec-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; background: var(--panel-bg); border-radius: 8px; overflow: hidden; }
-        .spec-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
-        .spec-table td:first-child { font-weight: 600; color: var(--text-muted); width: 35%; background: rgba(255,255,255,0.02); }
+        /* Tema butonu */
+        .theme-toggle{position:fixed;top:1rem;right:1rem;z-index:100;
+            width:44px;height:44px;border-radius:50%;background:var(--card);
+            border:1px solid var(--border);cursor:pointer;font-size:1.2rem;
+            display:flex;align-items:center;justify-content:center;transition:transform var(--t)}
+        .theme-toggle:hover{transform:scale(1.1)}
 
-        /* Listeler */
-        .feature-list, .install-list { padding-left: 1.5rem; color: #e2e8f0; margin-bottom: 1.5rem; }
-        .feature-list li, .install-list li { margin-bottom: 0.5rem; }
+        /* Breadcrumb */
+        .breadcrumb{font-size:.85rem;color:var(--muted);margin-bottom:1.2rem;
+            padding-bottom:.8rem;border-bottom:1px solid var(--border)}
+        .breadcrumb a{color:var(--accent);text-decoration:none}
+        .breadcrumb a:hover{text-decoration:underline}
 
-        /* Video Alanı */
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 1.8rem; border: 1px solid var(--border); }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        h1{font-size:clamp(1.5rem,4vw,2rem);margin-bottom:.6rem;line-height:1.2;
+            font-weight:800;letter-spacing:-.02em}
+        .meta-bar{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;font-size:.85rem;
+            color:var(--muted);margin-bottom:1.5rem;background:var(--panel);
+            padding:.75rem 1rem;border-radius:var(--rs);border:1px solid var(--border)}
+        .meta-bar strong{color:var(--text);font-weight:600}
 
-        /* İndirme Kutusu */
-        .download-box { background: var(--panel-bg); padding: 1.8rem; border-radius: 12px; text-align: center; border: 1px dashed var(--accent); margin: 2rem 0; }
-        .download-buttons { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin: 1rem 0; }
-        .btn-dl { display: inline-block; padding: 0.9rem 1.8rem; border-radius: 8px; font-weight: bold; text-decoration: none; color: #fff; font-size: 1.05rem; transition: 0.2s; }
-        .btn-primary { background: var(--success); }
-        .btn-primary:hover { background: #059669; transform: translateY(-2px); }
-        .btn-secondary { background: var(--warning); color: #0f172a; }
-        .btn-secondary:hover { background: #d97706; transform: translateY(-2px); }
-        .security-note { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.8rem; }
+        .cover-img{width:100%;max-height:450px;border-radius:var(--r);margin-bottom:1.8rem;
+            border:1px solid var(--border);object-fit:cover;display:block;
+            box-shadow:0 4px 20px rgba(0,0,0,.2)}
 
-        /* Geliştirici İmzası */
-        .author-box { display: flex; align-items: center; gap: 1rem; background: var(--panel-bg); padding: 1.2rem; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 2rem; }
-        .author-avatar { width: 55px; height: 55px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.3rem; color: #fff; flex-shrink: 0; }
+        .section-title{font-size:1.2rem;color:var(--accent);margin:2rem 0 1rem;
+            padding-left:.85rem;border-left:4px solid var(--accent);font-weight:700}
+        .intro-text{font-size:1.05rem;margin-bottom:1.5rem}
 
-        /* Canlı Chat / Yorum Bölümü */
-        .chat-section { background: var(--panel-bg); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); margin-top: 2rem; }
-        .chat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-        .chat-status { font-size: 0.8rem; color: var(--success); display: flex; align-items: center; gap: 0.4rem; }
-        .dot { width: 8px; height: 8px; background: var(--success); border-radius: 50%; display: inline-block; }
+        .spec-table{width:100%;border-collapse:collapse;margin-bottom:1.5rem;
+            background:var(--panel);border-radius:var(--rs);overflow:hidden}
+        .spec-table tr{border-bottom:1px solid var(--border)}
+        .spec-table tr:last-child{border-bottom:none}
+        .spec-table td{padding:.75rem 1rem;font-size:.95rem;vertical-align:top}
+        .spec-table td:first-child{font-weight:600;color:var(--muted);width:38%;
+            background:rgba(127,127,127,.04)}
+
+        .feature-list{list-style:none;padding:0;margin-bottom:1.5rem}
+        .feature-list li{position:relative;padding-left:1.75rem;margin-bottom:.6rem}
+        .feature-list li::before{content:'✓';position:absolute;left:0;
+            color:var(--success);font-weight:bold}
+        .install-list{padding-left:1.5rem;margin-bottom:1.5rem}
+        .install-list li{margin-bottom:.6rem;padding-left:.25rem}
+
+        .video-wrapper{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;
+            border-radius:var(--r);margin-bottom:1.8rem;border:1px solid var(--border);background:#000}
+        .video-wrapper iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+        .download-box{background:linear-gradient(135deg,var(--panel),var(--card));
+            padding:2rem 1.5rem;border-radius:var(--r);text-align:center;
+            border:1px solid var(--accent);margin:2.5rem 0}
+        .download-box h3{margin-bottom:1.25rem;font-size:1.15rem}
+        .download-buttons{display:flex;flex-wrap:wrap;gap:.75rem;
+            justify-content:center;margin:1rem 0}
+        .btn-dl{display:inline-flex;align-items:center;gap:.5rem;
+            padding:.85rem 1.5rem;border-radius:var(--rs);font-weight:700;
+            text-decoration:none;font-size:1rem;transition:all var(--t);
+            border:none;cursor:pointer;font-family:inherit;color:#fff}
+        .btn-dl:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.25)}
+        .btn-primary{background:var(--success)}
+        .btn-primary:hover{background:#059669}
+        .btn-secondary{background:var(--warn);color:#0f172a}
+        .btn-secondary:hover{background:#d97706}
+        .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border)}
+        .btn-ghost:hover{background:var(--panel)}
+        .security-note{font-size:.82rem;color:var(--muted);margin-top:1rem;line-height:1.5}
+
+        .author-box{display:flex;align-items:center;gap:1rem;background:var(--panel);
+            padding:1.2rem;border-radius:var(--rs);border:1px solid var(--border);margin-bottom:2rem}
+        .author-avatar{width:55px;height:55px;border-radius:50%;
+            background:linear-gradient(135deg,var(--accent),#8b5cf6);
+            display:flex;align-items:center;justify-content:center;
+            font-weight:800;font-size:1.1rem;color:#fff;flex-shrink:0}
+        .author-info strong{display:block;margin-bottom:.25rem}
+        .author-info p{font-size:.88rem;color:var(--muted)}
+
+        .chat-section{background:var(--panel);padding:1.5rem;border-radius:var(--r);
+            border:1px solid var(--border);margin-top:2rem}
+        .chat-header{display:flex;justify-content:space-between;align-items:center;
+            margin-bottom:1rem;flex-wrap:wrap;gap:.75rem}
+        .chat-status{font-size:.8rem;color:var(--success);display:flex;
+            align-items:center;gap:.4rem;font-weight:600}
+        .chat-status .dot{width:8px;height:8px;background:var(--success);
+            border-radius:50%;animation:pulse 2s infinite}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+        .giscus-placeholder{padding:1.5rem;text-align:center;color:var(--muted);
+            font-size:.9rem;border:1px dashed var(--border);border-radius:var(--rs)}
+
+        .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+            gap:.75rem;margin-bottom:2rem}
+        .related-card{background:var(--panel);border:1px solid var(--border);
+            border-radius:var(--rs);padding:1rem;text-decoration:none;color:var(--text);
+            transition:all var(--t);display:block}
+        .related-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+        .related-card .name{font-weight:600;font-size:.95rem;margin-bottom:.25rem}
+        .related-card .meta{font-size:.8rem;color:var(--muted)}
+
+        .error-state{text-align:center;padding:3rem 1rem}
+        .error-state .icon{font-size:3rem;margin-bottom:1rem}
+        .error-state h2{margin-bottom:.75rem}
+        .error-state p{color:var(--muted);margin-bottom:1.5rem}
+
+        @media (max-width:640px){
+            body{padding:.75rem .5rem}
+            .container{padding:1.25rem}
+            .download-buttons{flex-direction:column}
+            .btn-dl{justify-content:center;width:100%}
+            .theme-toggle{top:.5rem;right:.5rem;width:40px;height:40px}
+        }
+        @media print{
+            .theme-toggle,.download-box,.chat-section,.related-grid{display:none}
+            body{background:#fff;color:#000;padding:0}
+            .container{box-shadow:none;border:none}
+        }
     </style>
 </head>
 <body>
+    <a href="#main" class="skip-link">İçeriğe geç</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Tema değiştir" type="button">🌓</button>
 
-<div class="container" id="icerikAlani">
-    <p>Uygulama verileri yükleniyor...</p>
-</div>
+    <main id="main" class="container" role="main">
+        <div id="skeleton">
+            <div class="skeleton sk-line title"></div>
+            <div class="skeleton sk-line"></div>
+            <div class="skeleton sk-img"></div>
+            <div class="skeleton sk-line"></div>
+            <div class="skeleton sk-line short"></div>
+        </div>
+        <div id="icerikAlani" hidden></div>
+    </main>
 
 <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const programId = urlParams.get('id');
+(function(){
+'use strict';
 
-    fetch('uygulamalar.json')
-        .then(res => res.json())
-        .then(data => {
-            const app = data.find(item => item.id === programId);
-            const alan = document.getElementById('icerikAlani');
+/* ============================================================
+   GISCUS AYARLARI
+   1) Depo → Settings → Features → Discussions ✓
+   2) https://giscus.app/tr üzerinden aşağıdaki iki ID'yi alın
+   3) Placeholder'ları değiştirin. Boş bırakırsanız uyarı gösterilir.
+   ============================================================ */
+const GISCUS = {
+    repo:       'ubeyt2029-stack/ubeyt2029-stack.github.io',
+    repoId:     'YOUR_REPO_ID',
+    category:   'General',
+    categoryId: 'YOUR_CATEGORY_ID',
+};
 
-            if (!app) {
-                alan.innerHTML = `<div class="breadcrumb"><a href="index.html">Ana Sayfa</a></div><h2>Aradığınız yazılım bulunamadı.</h2>`;
-                return;
+/* ---------- Tema ---------- */
+const html = document.documentElement;
+const themeBtn = document.getElementById('themeToggle');
+const initTheme = () => {
+    const stored = localStorage.getItem('theme');
+    const prefersLight = matchMedia('(prefers-color-scheme: light)').matches;
+    html.setAttribute('data-theme', stored || (prefersLight ? 'light' : 'dark'));
+};
+initTheme();
+themeBtn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    // Giscus'u senkronize et
+    const frame = document.querySelector('iframe.giscus-frame');
+    frame?.contentWindow.postMessage(
+        { giscus: { setConfig: { theme: next } } },
+        'https://giscus.app'
+    );
+});
+
+/* ---------- Yardımcılar ---------- */
+const $ = id => document.getElementById(id);
+const escape = s => String(s ?? '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const setMeta = (id, val) => { const el = $(id); if (el) el.setAttribute('content', val || ''); };
+
+const skeleton = $('skeleton');
+const alan = $('icerikAlani');
+
+function showError(title, msg, icon='🔍') {
+    skeleton?.remove();
+    alan.hidden = false;
+    alan.innerHTML = `
+        <div class="error-state">
+            <div class="icon" aria-hidden="true">${icon}</div>
+            <h2>${escape(title)}</h2>
+            <p>${escape(msg)}</p>
+            <a href="index.html" class="btn-dl btn-primary">← Ana Sayfaya Dön</a>
+        </div>`;
+}
+
+/* ---------- Veri akışı ---------- */
+const id = new URLSearchParams(location.search).get('id');
+if (!id) { showError('Yazılım Belirtilmedi', 'Ana sayfadan bir yazılım seçin.', '🔗'); return; }
+
+fetch('uygulamalar.json', { cache: 'no-cache' })
+    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(data => {
+        const app = Array.isArray(data) ? data.find(x => x.id === id) : null;
+        if (!app) return showError('Yazılım Bulunamadı',
+            'Aradığınız yazılım kaldırılmış veya taşınmış olabilir.', '❌');
+        render(app, data);
+    })
+    .catch(err => {
+        console.error('Veri hatası:', err);
+        showError('Yüklenemedi',
+            'Yazılım bilgileri yüklenirken sorun oluştu. Sayfayı yenileyip tekrar deneyin.', '⚠️');
+    });
+
+/* ---------- Render ---------- */
+function render(app, all) {
+    skeleton?.remove();
+    alan.hidden = false;
+
+    const title    = escape(app.baslik || 'Yazılım Detayı');
+    const short    = escape((app.baslik || '').split('–')[0].trim());
+    const intro    = escape(app.tanitim || '');
+    const platform = escape(app.platform || '-');
+    const size     = escape(app.boyut || '-');
+    const date     = escape(app.tarih || '-');
+
+    document.title = `${app.baslik || 'Yazılım'} | Ubeyt ÇETİL`;
+    setMeta('meta-desc', intro.substring(0,160));
+    setMeta('og-title', title); setMeta('og-desc', intro.substring(0,200));
+    setMeta('og-img', app.resim || '');
+    setMeta('tw-title', title); setMeta('tw-desc', intro.substring(0,200));
+    setMeta('tw-img', app.resim || '');
+
+    const ozellikler = (app.ozellikler||[]).map(o=>`<li>${escape(o)}</li>`).join('');
+    const kurulum    = (app.kurulum||[]).map(k=>`<li>${escape(k)}</li>`).join('');
+
+    const videoHTML = app.youtube_id ? `
+        <h2 class="section-title">🎬 Video Anlatım</h2>
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(app.youtube_id)}?rel=0"
+                title="${title} video anlatımı" loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>` : '';
+
+    const link2HTML = app.link2
+        ? `<a href="${escape(app.link2)}" class="btn-dl btn-secondary"
+              target="_blank" rel="noopener noreferrer">📥 Alternatif İndirme</a>` : '';
+
+    const coverHTML = app.resim
+        ? `<img src="${escape(app.resim)}" alt="${title} ekran görüntüsü"
+              class="cover-img" loading="lazy" decoding="async">` : '';
+
+    const related = all
+        .filter(a => a.id !== app.id && (a.kategori === app.kategori || a.platform === app.platform))
+        .slice(0,4);
+
+    const relatedHTML = related.length ? `
+        <h2 class="section-title">📚 Benzer Yazılımlar</h2>
+        <div class="related-grid">
+            ${related.map(r=>`
+                <a href="detay.html?id=${encodeURIComponent(r.id)}" class="related-card">
+                    <div class="name">${escape(r.baslik)}</div>
+                    <div class="meta">${escape(r.platform||'')} · ${escape(r.boyut||'')}</div>
+                </a>`).join('')}
+        </div>` : '';
+
+    const jsonLd = {
+        '@context':'https://schema.org',
+        '@type':'SoftwareApplication',
+        name: app.baslik, description: app.tanitim,
+        applicationCategory:'DesktopApplication',
+        operatingSystem: app.gereksinim || app.platform,
+        softwareVersion: app.surum || '1.0',
+        fileSize: app.boyut,
+        offers:{'@type':'Offer', price:'0', priceCurrency:'TRY'},
+        author:{'@type':'Person', name:'Ubeyt ÇETİL'}
+    };
+
+    alan.innerHTML = `
+    <script type="application/ld+json">${JSON.stringify(jsonLd)}<\/script>
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Ana Sayfa</a> /
+        <span>${escape(app.kategori || app.platform || 'Yazılım')}</span> /
+        <strong aria-current="page">${title}</strong>
+    </nav>
+
+    <h1>${title}</h1>
+
+    <div class="meta-bar">
+        <span>👤 <strong>Ubeyt ÇETİL</strong></span>
+        <span>💻 <strong>${platform}</strong></span>
+        <span>📦 <strong>${size}</strong></span>
+        <span>📅 <strong>${date}</strong></span>
+    </div>
+
+    ${coverHTML}
+    <p class="intro-text"><strong>${short},</strong> ${intro}</p>
+
+    <h2 class="section-title">📋 Teknik Bilgiler</h2>
+    <table class="spec-table">
+        <tr><td>Uygulama Adı</td><td>${title}</td></tr>
+        <tr><td>Sürüm</td><td>${escape(app.surum || 'v1.0')}</td></tr>
+        <tr><td>İşletim Sistemi</td><td>${escape(app.gereksinim || platform)}</td></tr>
+        <tr><td>Dil</td><td>${escape(app.dil || 'Türkçe')}</td></tr>
+        <tr><td>Lisans</td><td>${escape(app.lisans || 'Ücretsiz')}</td></tr>
+        <tr><td>Dosya Boyutu</td><td>${size}</td></tr>
+    </table>
+
+    ${ozellikler ? `<h2 class="section-title">✨ Öne Çıkan Özellikler</h2><ul class="feature-list">${ozellikler}</ul>` : ''}
+    ${kurulum    ? `<h2 class="section-title">🛠️ Kurulum Rehberi</h2><ol class="install-list">${kurulum}</ol>` : ''}
+    ${videoHTML}
+
+    <div class="download-box">
+        <h3>⬇️ Güvenli İndirme Bağlantıları</h3>
+        <div class="download-buttons">
+            <a href="${escape(app.link1)}" class="btn-dl btn-primary"
+               target="_blank" rel="noopener noreferrer">📥 Hızlı İndir (${size})</a>
+            ${link2HTML}
+            <button class="btn-dl btn-ghost" id="shareBtn" type="button">🔗 Paylaş</button>
+        </div>
+        <p class="security-note">
+            ℹ️ Mağaza dışı yüklemede cihazınızın
+            <strong>"Bilinmeyen Kaynaklar"</strong> veya Windows
+            <strong>"Yine de Çalıştır"</strong> onayını vermeniz yeterlidir.
+        </p>
+    </div>
+
+    <div class="author-box">
+        <div class="author-avatar" aria-hidden="true">UÇ</div>
+        <div class="author-info">
+            <strong>Ubeyt ÇETİL</strong>
+            <p>Bu yazılım tarafımdan geliştirilmiş ve ücretsiz sunulmuştur. Görüş ve hata bildirimlerinizi aşağıdaki sohbetten iletebilirsiniz.</p>
+        </div>
+    </div>
+
+    ${relatedHTML}
+
+    <section class="chat-section" aria-labelledby="chat-h">
+        <div class="chat-header">
+            <h3 id="chat-h">💬 Soru, Destek ve Yorumlar</h3>
+            <span class="chat-status"><span class="dot" aria-hidden="true"></span> Aktif</span>
+        </div>
+        <p style="font-size:.85rem;color:var(--muted);margin-bottom:1rem">
+            GitHub hesabınızla giriş yaparak soru sorabilir, deneyiminizi paylaşabilirsiniz.
+        </p>
+        <div id="giscus-container"></div>
+    </section>`;
+
+    /* Paylaş butonu */
+    $('shareBtn')?.addEventListener('click', async e => {
+        const data = { title: app.baslik, text: app.tanitim, url: location.href };
+        try {
+            if (navigator.share) await navigator.share(data);
+            else {
+                await navigator.clipboard.writeText(location.href);
+                const b = e.currentTarget, orig = b.innerHTML;
+                b.innerHTML = '✅ Kopyalandı!';
+                setTimeout(() => b.innerHTML = orig, 2000);
             }
+        } catch(err){ if (err.name !== 'AbortError') console.error(err); }
+    });
 
-            document.title = app.baslik + " | Ubeyt ÇETİL";
+    loadGiscus();
+}
 
-            const ozelliklerHTML = app.ozellikler ? app.ozellikler.map(o => `<li>${o}</li>`).join('') : '';
-            const kurulumHTML = app.kurulum ? app.kurulum.map(k => `<li>${k}</li>`).join('') : '';
-            
-            const videoHTML = app.youtube_id ? `
-                <h2 class="section-title">Video Anlatım ve Kullanım Rehberi</h2>
-                <div class="video-wrapper">
-                    <iframe src="https://youtube.com{app.youtube_id}" frameborder="0" allowfullscreen></iframe>
-                </div>
-            ` : '';
-
-            const link2HTML = app.link2 ? `<a href="${app.link2}" class="btn-dl btn-secondary" target="_blank">Alternatif İndirme (Link 2)</a>` : '';
-
-            alan.innerHTML = `
-                <div class="breadcrumb">
-                    <a href="index.html">Ana Sayfa</a> / <span>${app.kategori || app.platform}</span> / <strong>${app.baslik}</strong>
-                </div>
-
-                <h1>${app.baslik}</h1>
-                
-                <div class="meta-bar">
-                    <span>Geliştirici: <strong>Ubeyt ÇETİL</strong></span>
-                    <span>Platform: <strong>${app.platform}</strong></span>
-                    <span>Boyut: <strong>${app.boyut}</strong></span>
-                    <span>Tarih: <strong>${app.tarih}</strong></span>
-                </div>
-
-                <img src="${app.resim}" alt="${app.baslik}" class="cover-img">
-
-                <p class="intro-text"><strong>${app.baslik.split('–')[0].trim()},</strong> ${app.tanitim}</p>
-
-                <h2 class="section-title">Yazılım Teknik Bilgileri</h2>
-                <table class="spec-table">
-                    <tr><td>Uygulama Adı</td><td>${app.baslik}</td></tr>
-                    <tr><td>Sürüm</td><td>${app.surum || 'v1.0'}</td></tr>
-                    <tr><td>İşletim Sistemi</td><td>${app.gereksinim || app.platform}</td></tr>
-                    <tr><td>Dil Seçeneği</td><td>${app.dil || 'Türkçe'}</td></tr>
-                    <tr><td>Lisans Durumu</td><td>${app.lisans || 'Ücretsiz'}</td></tr>
-                    <tr><td>Dosya Boyutu</td><td>${app.boyut}</td></tr>
-                </table>
-
-                <h2 class="section-title">Öne Çıkan Özellikler</h2>
-                <ul class="feature-list">${ozelliklerHTML}</ul>
-
-                <h2 class="section-title">Adım Adım Kurulum Rehberi</h2>
-                <ol class="install-list">${kurulumHTML}</ol>
-
-                ${videoHTML}
-
-                <div class="download-box">
-                    <h3>Güvenli ve Doğrudan İndirme Bağlantıları</h3>
-                    <div class="download-buttons">
-                        <a href="${app.link1}" class="btn-dl btn-primary" download>Hızlı İndir - Link 1 (${app.boyut})</a>
-                        ${link2HTML}
-                    </div>
-                    <p class="security-note">Bilgi: Kendi geliştirdiğim yazılımlarda mağaza dışı yükleme yaparken cihazınızın "Bilinmeyen Kaynaklar" veya Windows "Yine de Çalıştır" onayını vermeniz yeterlidir.</p>
-                </div>
-
-                <div class="author-box">
-                    <div class="author-avatar">UÇ</div>
-                    <div>
-                        <strong>Geliştirici: Ubeyt ÇETİL</strong>
-                        <p style="font-size: 0.88rem; color: var(--text-muted);">Bu yazılım tarafımdan geliştirilmiş olup ücretsiz olarak sunulmaktadır. Görüş, öneri ve hata bildirimlerinizi aşağıdaki sohbet alanından iletebilirsiniz.</p>
-                    </div>
-                </div>
-
-                <div class="chat-section">
-                    <div class="chat-header">
-                        <h3>💬 Canlı Soru, Destek ve Yorum Alanı</h3>
-                        <span class="chat-status"><span class="dot"></span> Geliştirici Sohbeti Aktif</span>
-                    </div>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Programla ilgili sorularınızı aşağıdan yazabilirsiniz (GitHub hesabınızla anında mesaj gönderebilirsiniz).</p>
-                    <div id="giscus-container"></div>
-                </div>
-            `;
-
-            // Giscus Chat Sistemini Dinamik Yükle
-            const script = document.createElement('script');
-            script.src = "https://giscus.app";
-            script.setAttribute("data-repo", "ubeyt2029-stack/ubeyt2029-stack.github.io");
-            script.setAttribute("data-repo-id", ""); // Giscus kurulumundan alınacak
-            script.setAttribute("data-category", "General");
-            script.setAttribute("data-category-id", ""); // Giscus kurulumundan alınacak
-            script.setAttribute("data-mapping", "url");
-            script.setAttribute("data-strict", "0");
-            script.setAttribute("data-reactions-enabled", "1");
-            script.setAttribute("data-emit-metadata", "0");
-            script.setAttribute("data-input-position", "top");
-            script.setAttribute("data-theme", "dark");
-            script.setAttribute("data-lang", "tr");
-            script.crossOrigin = "anonymous";
-            script.async = true;
-            document.getElementById('giscus-container').appendChild(script);
-            });
-            ---
-
-### Adım 3: Canlı Chat (Giscus) Sistemini 1 Dakikada Aktif Etme
-Kodun en altındaki sohbet kutusunun mesajları kaydedebilmesi için GitHub deponda **Discussions** (Tartışmalar) özelliğini açman gerekiyor:
-1. GitHub'da **`ubeyt2029-stack.github.io`** deponun üst menüsünden **Settings** (Ayarlar) sekmesine tıkla.
-2. Aşağı doğru inip **Features** başlığı altındaki **Discussions** kutucuğunu işaretle.
-3. Ardından **[giscus.app](https://giscus.app/tr)** adresine git, depo adı kısmına **`ubeyt2029-stack/ubeyt2029-stack.github.io`** yaz.
-4. Sayfanın altında sana vereceği **`data-repo-id`** ve **`data-category-id`** kodlarını kopyalayıp `detay.html` dosyasındaki ilgili boş tırnakların (`""`) içine yapıştır.
-
-Artık her program kartının içinde hem profesyonel bir tanıtım vitrini hem de her uygulamanın kendine ait bağımsız bir sohbet/yorum odası çalışacak.
-
-<FollowUp>
-NotDefterim uygulamanın **gerçek özelliklerini veya ekran görüntüsünü** paylaşırsan, `uygulamalar.json` içindeki metinleri birebir senin uygulamana özel olarak düzenleyebilirim.
-</FollowUp>
+/* ---------- Giscus yükleyici ---------- */
+function loadGiscus() {
+    const box = $('giscus-container');
+    if (!box) return;
+    if (!GISCUS.repoId || GISCUS.repoId.startsWith('YOUR_')) {
+        box.innerHTML = `<div class="giscus-placeholder">
+            ⚙️ Yorum sistemi henüz yapılandırılmadı.<br>
+            <small><code>GISCUS</code> yapılandırmasını doldurun
+            (bkz. <a href="https://giscus.app/tr" target="_blank" rel="noopener">giscus.app/tr</a>).</small>
+        </div>`;
+        return;
+    }
+    const s = document.createElement('script');
+    s.src = 'https://giscus.app/client.js';
+    s.setAttribute('data-repo', GISCUS.repo);
+    s.setAttribute('data-repo-id', GISCUS.repoId);
+    s.setAttribute('data-category', GISCUS.category);
+    s.setAttribute('data-category-id', GISCUS.categoryId);
+    s.setAttribute('data-mapping', 'url');
+    s.setAttribute('data-strict', '0');
+    s.setAttribute('data-reactions-enabled', '1');
+    s.setAttribute('data-emit-metadata', '0');
+    s.setAttribute('data-input-position', 'top');
+    s.setAttribute('data-theme', html.getAttribute('data-theme'));
+    s.setAttribute('data-lang', 'tr');
+    s.setAttribute('data-loading', 'lazy');
+    s.crossOrigin = 'anonymous';
+    s.async = true;
+    box.appendChild(s);
+}
+})();
+</script>
+</body>
+</html>
