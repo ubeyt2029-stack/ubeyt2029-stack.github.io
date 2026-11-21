@@ -2,172 +2,112 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>NotDefterim – Şifreli Not Defteri Uygulaması</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubeyt ÇETİL | Yazılım & Uygulama Arşivi</title>
     <style>
-        /* Ekran görüntüleri için geçici ek stil – style.css içinde de olabilir */
-        .screenshot-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            justify-items: center;
-            align-items: center;
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
         }
-        .screenshot-grid img {
-            width: 100%;
-            max-width: 300px;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-            cursor: pointer;
-        }
-        .screenshot-grid img:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-        @media (max-width: 600px) {
-            .screenshot-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
+        header { background: #020617; padding: 2rem 1rem; text-align: center; border-bottom: 1px solid #1e293b; }
+        header h1 { font-size: 2rem; color: var(--accent); margin-bottom: 0.5rem; }
+        header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+        
+        .controls { max-width: 1200px; margin: 2rem auto 1rem; padding: 0 1rem; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center; }
+        .filters { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .filter-btn { background: var(--card-bg); color: var(--text); border: 1px solid #334155; padding: 0.5rem 1.2rem; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .filter-btn.active, .filter-btn:hover { background: var(--accent); border-color: var(--accent); }
+        .search-box { padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid #334155; background: var(--card-bg); color: var(--text); width: 260px; }
+
+        .grid { max-width: 1200px; margin: 1.5rem auto 4rem; padding: 0 1rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+        .card { background: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid #334155; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.4); border-color: var(--accent); }
+        .card img { width: 100%; height: 180px; object-fit: cover; background: #020617; }
+        .card-body { padding: 1.25rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .badge { display: inline-block; background: rgba(59, 130, 246, 0.2); color: #60a5fa; font-size: 0.75rem; font-weight: bold; padding: 0.2rem 0.6rem; border-radius: 6px; margin-bottom: 0.75rem; width: fit-content; }
+        .card-title { font-size: 1.2rem; margin-bottom: 0.5rem; color: #fff; text-decoration: none; font-weight: 600; }
+        .card-title:hover { color: var(--accent); }
+        .card-desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem; flex-grow: 1; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #334155; padding-top: 0.75rem; font-size: 0.8rem; color: var(--text-muted); }
+        .btn-detail { background: var(--accent); color: white; text-decoration: none; padding: 0.4rem 0.9rem; border-radius: 6px; font-weight: 500; transition: 0.2s; }
+        .btn-detail:hover { background: var(--accent-hover); }
     </style>
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
-<link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="app-icon">📓</div>
-            <h1>NotDefterim</h1>
-            <div class="tagline">Şifreli, klasör ağaçlı, tamamen yerel – kişisel not defteriniz.</div>
-        </header>
 
-        <div class="features">
-            <div class="feature-card"><h3>🔐 Şifre Korumalı</h3><p>Uygulama açılışında şifre sorulur. Notlarınız şifrelenmiş olarak saklanır.</p></div>
-            <div class="feature-card"><h3>📂 Klasör Ağacı</h3><p>Klasörler oluşturun, notlarınızı düzenleyin. Klasörler ve notlar ağaç görünümünde.</p></div>
-            <div class="feature-card"><h3>✍️ Zengin Metin Düzenleme</h3><p>Kalın, italik, altı çizili, yazı tipi ailesi, yazı boyutu – tüm stiller.</p></div>
-            <div class="feature-card"><h3>🔍 Kelime Arama</h3><p>Notlar içinde hızlı arama, eşleşmeler vurgulanır.</p></div>
-            <div class="feature-card"><h3>🌙 Koyu / Açık Tema</h3><p>Sistem temasını takip eder veya manuel seçim.</p></div>
-            <div class="feature-card"><h3>📁 Dışa Aktarma</h3><p>Notlarınızı .txt olarak dışa aktarabilir, yedek alabilirsiniz.</p></div>
-        </div>
+<header>
+    <h1>Ubeyt ÇETİL | Yazılım Merkezi</h1>
+    <p>Kendi geliştirdiğim Windows (EXE) masaüstü yazılımları ve Android (APK) mobil uygulamaları.</p>
+</header>
 
-        <!-- 📸 EKRAN GÖRÜNTÜLERİ -->
-        <div class="screenshots">
-            <h2>📸 Ekran Görüntüleri</h2>
-            <div class="screenshot-grid" id="screenshotGrid"></div>
-        </div>
-
-        <!-- 🎥 TANITIM VİDEOSU -->
-        <div class="video-container">
-            <h2>🎥 Tanıtım Videosu</h2>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/MtY64tT4dWA" 
-                    title="YouTube video player" frameborder="0" allowfullscreen></iframe>
-        </div>
-
-        <!-- ❓ SSS (Akordeon) -->
-        <div class="faq">
-            <h2>❓ Sık Sorulan Sorular</h2>
-            <div class="faq-item"><div class="faq-question">Notlarım nerede saklanıyor? <span class="faq-icon">+</span></div><div class="faq-answer">Notlarınız yalnızca cihazınızda, uygulamanın özel veri klasöründe saklanır. Bizimle veya herhangi bir sunucuyla paylaşılmaz.</div></div>
-            <div class="faq-item"><div class="faq-question">Tam sürümü nasıl satın alabilirim? <span class="faq-icon">+</span></div><div class="faq-answer">Uygulama içindeki “Tam Sürüme Geç” menüsünden cihaz ID’nizi kopyalayıp, belirtilen IBAN’a ödeme yaparak lisans anahtarı alabilirsiniz.</div></div>
-            <div class="faq-item"><div class="faq-question">Uygulamayı sildiğimde notlarım kaybolur mu? <span class="faq-icon">+</span></div><div class="faq-answer">Evet, uygulama silindiğinde tüm veriler (notlar, klasörler) cihazdan kaldırılır. Dışa aktarma özelliği ile yedek almanızı öneririz.</div></div>
-        </div>
-
-        <div style="text-align: center;">
-            <a href="NotDefterim.apk" class="download-btn" download>📲 APK İndir (sürüm 1.0)</a>
-            <div class="version-info">Android 6.0+ | 5.2 MB | Güvenli, şifrelenmiş notlar</div>
-        </div>
-
-        <div class="legal-link">
-            <a href="#" id="showTermsLink">📜 Kullanım Koşulları ve Gizlilik Politikası</a>
-        </div>
-
-        <footer>
-            <p>NotDefterim – Kişisel verileriniz asla üçüncü taraflarla paylaşılmaz. Uygulama tamamen yerel çalışır.</p>
-            <p>© 2026 Ubeyt ÇETİL | İletişim: ubeyt2029@gmail.com</p>
-            <div class="counter-card">
-                <span id="visitCount">Yükleniyor...</span> kişi bu sayfayı ziyaret etti.
-            </div>
-        </footer>
+<div class="controls">
+    <div class="filters">
+        <button class="filter-btn active" onclick="filtrele('Tümü', this)">Tümü</button>
+        <button class="filter-btn" onclick="filtrele('Windows', this)">Windows (EXE)</button>
+        <button class="filter-btn" onclick="filtrele('Android', this)">Android (APK)</button>
     </div>
-
-    <!-- Modal (Kullanım Koşulları) -->
-<div id="termsModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>📜 Kullanım Koşulları ve Gizlilik Politikası</h2>
-        <p><strong>Son güncelleme:</strong> 24 Mart 2026</p>
-
-        <h3>1. Uygulamanın Amacı ve Kapsamı</h3>
-        <p>NotDefterim, kullanıcıların kişisel notlarını güvenli bir şekilde cihazlarında saklamalarına olanak tanıyan bir Android uygulamasıdır. Uygulama, kullanıcı tarafından belirlenen bir şifre ile korunur. Notlar, kullanıcının cihazında (veritabanında) şifrelenmeden saklanır; uygulama, kullanıcı verilerini hiçbir şekilde sunucuya iletmez, dışa aktarmaz veya üçüncü taraflarla paylaşmaz.</p>
-
-        <h3>2. Veri Toplama ve Depolama</h3>
-        <p>NotDefterim, herhangi bir kişisel veriyi (ad, e-posta, telefon numarası, konum vb.) toplamaz, saklamaz veya işlemez. Kullanıcının oluşturduğu notlar, yalnızca kullanıcının cihazında yerel olarak tutulur. Uygulama, internet bağlantısı gerektirmez ve herhangi bir bulut hizmeti ile senkronizasyon yapmaz.</p>
-        <p><strong>Uygulama giriş şifresi</strong> yalnızca kullanıcının cihazında saklanır; geliştiricinin bu şifreyi görme, değiştirme veya kurtarma imkânı yoktur.</p>
-
-        <h3>3. Kullanıcının Sorumlulukları</h3>
-        <ul>
-            <li>Kullanıcı, uygulama şifresini güvenli bir şekilde saklamakla yükümlüdür. Şifre unutulursa, notlar kurtarılamaz.</li>
-            <li>Uygulama, yalnızca kişisel ve yasal kullanım için tasarlanmıştır. Kullanıcı, uygulamayı yasa dışı faaliyetlerde kullanmamayı kabul eder.</li>
-            <li>Kullanıcı, uygulamanın dışa aktarma (.txt) özelliğini kullanarak notlarını kendi sorumluluğunda yedekleyebilir. Bu dosyaların güvenliğinden kullanıcı sorumludur.</li>
-        </ul>
-
-        <h3>4. Geliştiricinin Sorumluluğu ve Yasal Uyarı</h3>
-        <p>Geliştirici (Ubeyt ÇETİL), uygulamanın işlevselliğini sürdürmek için çaba gösterir, ancak veri kaybı, donanım arızası veya üçüncü parti müdahaleleri sonucu oluşabilecek veri kayıplarından sorumlu tutulamaz. Kullanıcı, uygulamayı kullanarak bu koşulları kabul eder.</p>
-        <p>Yasal bir zorunluluk halinde (örneğin mahkeme kararı), geliştirici, uygulamanın kaynak kodunu ve veri yapısını yetkili mercilere sunmakla yükümlüdür. Ancak geliştirici, kullanıcı şifresini bilmediği için notların içeriğine erişemez.</p>
-
-        <h3>5. Değişiklikler ve Güncellemeler</h3>
-        <p>Bu kullanım koşulları ve gizlilik politikası, uygulamanın yeni sürümleri veya yasal düzenlemeler gereği güncellenebilir. Değişiklikler bu sayfada yayınlanır ve geçerlilik kazanır.</p>
-
-        <h3>6. İletişim</h3>
-        <p>Bu koşullarla ilgili sorularınız için: <strong>ubeyt2029@gmail.com</strong></p>
-    </div>
+    <input type="text" id="aramaKutusu" class="search-box" placeholder="Program ara..." onkeyup="ara()">
 </div>
-    <script>
-        // 📸 Ekran görüntüleri (dosya adlarını klasördeki adlarla eşleştirin)
-        const screenshotNames = [
-            "Screenshot0.png", "Screenshot1.png", "Screenshot2.png", "Screenshot3.png",
-            "Screenshot4.png", "Screenshot5.png", "Screenshot6.png", "Screenshot7.png",
-            "Screenshot8.png", "Screenshot9.png"
-        ];
-        const grid = document.getElementById("screenshotGrid");
-        screenshotNames.forEach(name => {
-            const img = document.createElement("img");
-            img.src = `screenshots/${name}`;
-            img.alt = "NotDefterim ekran görüntüsü";
-            img.style.cursor = "pointer";
-            img.addEventListener("click", () => window.open(img.src, "_blank"));
-            grid.appendChild(img);
+
+<main class="grid" id="programListesi"></main>
+
+<script>
+    let tumUygulamalar = [];
+    let aktifKategori = 'Tümü';
+
+    fetch('uygulamalar.json')
+        .then(res => res.json())
+        .then(data => {
+            tumUygulamalar = data;
+            listeyiGoster(tumUygulamalar);
         });
 
-        // ❓ Akordeon (SSS)
-        document.querySelectorAll('.faq-question').forEach(q => {
-            q.addEventListener('click', () => {
-                const answer = q.parentElement.querySelector('.faq-answer');
-                const icon = q.querySelector('.faq-icon');
-                answer.classList.toggle('show');
-                icon.classList.toggle('rotate');
-            });
+    function listeyiGoster(liste) {
+        const alan = document.getElementById('programListesi');
+        alan.innerHTML = '';
+        liste.forEach(app => {
+            alan.innerHTML += `
+                <article class="card">
+                    <a href="detay.html?id=${app.id}">
+                        <img src="${app.resim}" alt="${app.baslik}">
+                    </a>
+                    <div class="card-body">
+                        <span class="badge">${app.platform} • ${app.boyut}</span>
+                        <a href="detay.html?id=${app.id}" class="card-title">${app.baslik}</a>
+                        <p class="card-desc">${app.ozet}</p>
+                        <div class="card-footer">
+                            <span>${app.tarih}</span>
+                            <a href="detay.html?id=${app.id}" class="btn-detail">İncele & İndir</a>
+                        </div>
+                    </div>
+                </article>
+            `;
         });
+    }
 
-        // 📊 Sayfa görüntüleme sayacı (CountAPI)
-        fetch('https://api.countapi.xyz/hit/ubeyt2029-stack.github.io/visits')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('visitCount').innerText = data.value;
-            })
-            .catch(() => {
-                document.getElementById('visitCount').innerText = '?';
-            });
+    function filtrele(kategori, btn) {
+        aktifKategori = kategori;
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        ara();
+    }
 
-        // Modal işlemleri (Kullanım Koşulları)
-        var modal = document.getElementById("termsModal");
-        var link = document.getElementById("showTermsLink");
-        var span = document.getElementsByClassName("close")[0];
-        link.onclick = function(event) { event.preventDefault(); modal.style.display = "block"; }
-        span.onclick = function() { modal.style.display = "none"; }
-        window.onclick = function(event) { if (event.target == modal) modal.style.display = "none"; 
-}
-    </script>
+    function ara() {
+        const kelime = document.getElementById('aramaKutusu').value.toLowerCase();
+        const filtrelenmis = tumUygulamalar.filter(app => {
+            const kategoriUyumu = aktifKategori === 'Tümü' || app.platform === aktifKategori;
+            const kelimeUyumu = app.baslik.toLowerCase().includes(kelime) || app.ozet.toLowerCase().includes(kelime);
+            return kategoriUyumu && kelimeUyumu;
+        });
+        listeyiGoster(filtrelenmis);
+    }
+</script>
+
 </body>
 </html>
