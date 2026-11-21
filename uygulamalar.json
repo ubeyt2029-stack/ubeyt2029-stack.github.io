@@ -1,14 +1,14 @@
 [
   {
     "id": "notdefterim",
-    "baslik": "NotDefterim v1.0 - Masaüstü Not Uygulaması",
-    "platform": "Windows",
+    "baslik": "NotDefterim v1.0 - Android Not Uygulaması",
+    "platform": "Android",
     "tarih": "21 Kasım 2026",
-    "boyut": "12 MB",
-    "ozet": "Günlük notlarınızı hızlıca alabileceğiniz, sade ve göz yormayan pratik masaüstü not defteri yazılımı.",
-    "aciklama": "NotDefterim, bilgisayarınızda karmaşık menülerle uğraşmadan anında not almanız için geliştirildi.\n\nÖne Çıkan Özellikler:\n• Hızlı açılış ve düşük RAM tüketimi\n• Otomatik kaydetme desteği\n• Karanlık ve aydınlık tema seçenekleri\n• Kurulum gerektirmeyen taşınabilir (Portable) yapı",
+    "boyut": "8.5 MB",
+    "ozet": "Android cihazlarınızda günlük notlarınızı hızlıca alabileceğiniz, sade ve kullanışlı mobil not defteri uygulaması.",
+    "aciklama": "NotDefterim, telefonunuzda karmaşık menülerle uğraşmadan anında not almanız için geliştirildi.\n\nÖne Çıkan Özellikler:\n• Hızlı açılış ve düşük pil/RAM tüketimi\n• Çevrimdışı (internetsiz) tam çalışma desteği\n• Sade ve kullanıcı dostu arayüz\n\nKurulum Notu:\nİndirdiğiniz .apk dosyasına dokunun. Telefonunuz izin isterse Ayarlar'dan 'Bilinmeyen Uygulamaları Yükle' seçeneğine izin vererek kurulumu tamamlayabilirsiniz.",
     "resim": "https://unsplash.com",
     "youtube_id": "",
-    "indirme_linki": "#"
+    "indirme_linki": "BURAYA_KOPYALADIGIN_APK_LINKINI_YAPISTIR"
   }
 ]
