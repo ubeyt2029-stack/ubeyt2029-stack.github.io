@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program Detayı</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --success: #10b981;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.7; padding: 2rem 1rem; }
+        .container { max-width: 850px; margin: 0 auto; background: var(--card-bg); border-radius: 16px; padding: 2rem; border: 1px solid #334155; }
+        .back-link { display: inline-block; color: var(--accent); text-decoration: none; margin-bottom: 1.5rem; font-weight: 500; }
+        .back-link:hover { text-decoration: underline; }
+        h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+        .meta { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+        .cover-img { width: 100%; max-height: 420px; object-fit: cover; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid #334155; }
+        .description { white-space: pre-line; color: #e2e8f0; margin-bottom: 2rem; font-size: 1.05rem; }
+        
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin-bottom: 2rem; border: 1px solid #334155; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        .download-box { background: #0f172a; padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px dashed #334155; }
+        .btn-download { display: inline-block; background: var(--success); color: white; text-decoration: none; padding: 0.9rem 2rem; border-radius: 8px; font-size: 1.1rem; font-weight: bold; transition: 0.2s; }
+        .btn-download:hover { background: #059669; transform: scale(1.02); }
+        .security-note { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<div class="container" id="icerikAlani">
+    <p>Yükleniyor...</p>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const programId = urlParams.get('id');
+
+    fetch('uygulamalar.json')
+        .then(res => res.json())
+        .then(data => {
+            const app = data.find(item => item.id === programId);
+            const alan = document.getElementById('icerikAlani');
+
+            if (!app) {
+                alan.innerHTML = `<a href="index.html" class="back-link">← Ana Sayfaya Dön</a><h2>Program bulunamadı.</h2>`;
+                return;
+            }
+
+            document.title = app.baslik + " | İndir";
+
+            const videoHTML = app.youtube_id ? `
+                <h3>Tanıtım ve Kullanım Videosu</h3><br>
+                <div class="video-wrapper">
+                    <iframe src="https://youtube.com{app.youtube_id}" frameborder="0" allowfullscreen></iframe>
+                </div>
+            ` : '';
+
+            alan.innerHTML = `
+                <a href="index.html" class="back-link">← Tüm Programlara Dön</a>
+                <h1>${app.baslik}</h1>
+                <div class="meta">Platform: <strong>${app.platform}</strong> | Boyut: <strong>${app.boyut}</strong> | Yayın Tarihi: ${app.tarih}</div>
+                <img src="${app.resim}" alt="${app.baslik}" class="cover-img">
+                <div class="description">${app.aciklama}</div>
+                ${videoHTML}
+                <div class="download-box">
+                    <a href="${app.indirme_linki}" class="btn-download" download>Hemen İndir (${app.boyut})</a>
+                    <p class="security-note">Not: Kendi geliştirdiğim yazılımlarda dijital sertifika bulunmadığı için Windows SmartScreen uyarısı çıkarsa "Ek Bilgi -> Yine de Çalıştır" adımlarını izleyebilirsiniz.</p>
+                </div>
+            `;
+        });
+</script>
+
+</body>
+</html>
